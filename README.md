@@ -14,8 +14,9 @@ pip install sabpaisa
 
 ## Example
 ```
-from flask import Flask,redirect
-from sabpaisa import main
+from flask import Flask,redirect,request
+from sabpaisa import main,auth
+
 
 
 dic={
@@ -29,9 +30,9 @@ s = main.Sabpaisa(URLfailure="http://localhost:8080/payment/",
                   URLsuccess="http://localhost:8080/payment/",
                   payerFirstName="payer first name",
                   payerLastName="payer last name",
-                  spDomain="https://securepay.sabpaisa.in/SabPaisa/sabPaisaInit",
                   auth=True,payerContact="payer phone number",
                   payerAddress="ABC",
+                  spDomain="https://securepay.sabpaisa.in/SabPaisa/sabPaisaInit",
                   tnxId="payer txn id",
                   username=dic["username"],
                   password=dic["password"],
@@ -40,7 +41,6 @@ s = main.Sabpaisa(URLfailure="http://localhost:8080/payment/",
                   clientCode=dic["client_code"],
                   payerEmail="payer email",
                   txnAmt="amount")
-
 
 app  = Flask(__name__)
 
@@ -52,6 +52,11 @@ def hello_world():
 @app.route('/payment')
 def payment():
     return redirect(s.genrateLink())
+@app.route("/response", methods=["POST"])
+def response():
+    query = request.args.get('query')
+    st = auth.AESCipher(dic["API_KEY"],dic["API_IV"]).decrypt(query)
+    return st
 
 ```
 
