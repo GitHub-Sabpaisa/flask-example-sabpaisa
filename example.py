@@ -24,7 +24,7 @@ s = main.Sabpaisa(URLfailure="http://localhost:8080/payment/",
                   authIV=dic["API_IV"],
                   param1="vdsvs",
                   
-                  udfs=["","kanishk","kkk","","","","","","",'','','','','','',''],
+                  udfs=["","your udfs","your udfs","","","","","","",'','','','','','',''],
                   clientCode=dic["client_code"],
                   payerEmail="payer email",
                   txnAmt="amount")
