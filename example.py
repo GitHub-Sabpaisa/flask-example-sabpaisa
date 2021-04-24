@@ -2,22 +2,29 @@ from flask import Flask,redirect,request
 from sabpaisa import main,auth
 
 
-dic=dic={"username":"nishant.jha_2885","password":"SIPL1_SP2885","API_KEY":"rMnggTKFvmGx8y1z","API_IV":"0QvWIQBSz4AX0VoH","client_code":"SIPL1","email":"kanu0704@gmail.com"}
-s = main.Sabpaisa(URLfailure="http://127.0.0.1:5000/response",
-                  URLsuccess="http://127.0.0.1:5000/response",
-                  payerFirstName="kanishk",
-                  payerLastName="dixit",
-                  auth=True,payerContact="+918979626196",
+
+dic={
+    "username":"your username",
+    "password":"your password",
+    "API_KEY":"your api key",
+    "API_IV":"your api iv",
+    "client_code":"your client code",
+    "email":"your email"}
+s = main.Sabpaisa(URLfailure="http://localhost:8080/payment/",
+                  URLsuccess="http://localhost:8080/payment/",
+                  payerFirstName="payer first name",
+                  payerLastName="payer last name",
+                  auth=True,payerContact="payer phone number",
                   payerAddress="ABC",
-                  tnxId="nvcdsjksdsdsdacdssav12",
+                  spDomain="https://securepay.sabpaisa.in/SabPaisa/sabPaisaInit",
+                  tnxId="payer txn id",
                   username=dic["username"],
                   password=dic["password"],
                   authKey=dic["API_KEY"],
                   authIV=dic["API_IV"],
                   clientCode=dic["client_code"],
-                  payerEmail="kanu0704@gmail.com",
-                  txnAmt="800")
-
+                  payerEmail="payer email",
+                  txnAmt="amount")
 
 app  = Flask(__name__)
 
