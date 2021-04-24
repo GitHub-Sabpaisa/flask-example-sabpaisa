@@ -1,28 +1,22 @@
-from flask import Flask,redirect
-from sabpaisa import main
+from flask import Flask,redirect,request
+from sabpaisa import main,auth
 
 
-dic={
-    "username":"your username",
-    "password":"your password",
-    "API_KEY":"your api key",
-    "API_IV":"your api iv",
-    "client_code":"your client code",
-    "email":"your email"}
-s = main.Sabpaisa(URLfailure="http://localhost:8080/payment/",
-                  URLsuccess="http://localhost:8080/payment/",
-                  payerFirstName="payer first name",
-                  payerLastName="payer last name",
-                  auth=True,payerContact="payer phone number",
+dic=dic={"username":"nishant.jha_2885","password":"SIPL1_SP2885","API_KEY":"rMnggTKFvmGx8y1z","API_IV":"0QvWIQBSz4AX0VoH","client_code":"SIPL1","email":"kanu0704@gmail.com"}
+s = main.Sabpaisa(URLfailure="http://127.0.0.1:5000/response",
+                  URLsuccess="http://127.0.0.1:5000/response",
+                  payerFirstName="kanishk",
+                  payerLastName="dixit",
+                  auth=True,payerContact="+918979626196",
                   payerAddress="ABC",
-                  tnxId="payer txn id",
+                  tnxId="nvcdsjksdsdsdacdssav12",
                   username=dic["username"],
                   password=dic["password"],
                   authKey=dic["API_KEY"],
                   authIV=dic["API_IV"],
                   clientCode=dic["client_code"],
-                  payerEmail="payer email",
-                  txnAmt="amount")
+                  payerEmail="kanu0704@gmail.com",
+                  txnAmt="800")
 
 
 app  = Flask(__name__)
@@ -35,3 +29,8 @@ def hello_world():
 @app.route('/payment')
 def payment():
     return redirect(s.genrateLink())
+@app.route("/response", methods=["POST"])
+def response():
+    query = request.args.get('query')
+    st = auth.AESCipher(dic["API_KEY"],dic["API_IV"]).decrypt(query)
+    return st
