@@ -1,5 +1,6 @@
 from flask import Flask,redirect,request
 from sabpaisa import main,auth
+import random
 
 
 
@@ -10,25 +11,26 @@ dic={
     "API_IV":"your api iv",
     "client_code":"your client code",
     "email":"your email"}
-s = main.Sabpaisa(URLfailure="http://localhost:8080/payment/",
-                  URLsuccess="http://localhost:8080/payment/",
+s = main.Sabpaisa(URLfailure="http://127.0.0.1:5000/response",
+                  URLsuccess="http://127.0.0.1:5000/response",
                   payerFirstName="payer first name",
                   payerLastName="payer last name",
                   auth=True,payerContact="payer phone number",
-                  payerAddress="ABC",
-                  spDomain="https://securepay.sabpaisa.in/SabPaisa/sabPaisaInit",
-                  tnxId="payer txn id",
+                  payerAddress="payer address",
+                  tnxId="your txn id",
+                  spDomain="https://uatsp.sabpaisa.in/SabPaisa/sabPaisaInit", # for live env use "https://securepay.sabpaisa.in/SabPaisa/sabPaisaInit" for test env use "https://uatsp.sabpaisa.in/SabPaisa/sabPaisaInit"
+                  udfs=["","kanishk","kkk","","","","","","",'','','','','','',''], # array is starting from udf5 to udf20 size of array should be 16
+                  param1="",
+                  param2="",
+                  param3="",
+                  param4="",
                   username=dic["username"],
                   password=dic["password"],
                   authKey=dic["API_KEY"],
                   authIV=dic["API_IV"],
-                  param1="vdsvs",
-                  
-                  udfs=["","your udfs","your udfs","","","","","","",'','','','','','',''],
                   clientCode=dic["client_code"],
-                  payerEmail="payer email",
+                  payerEmail="payer email id",
                   txnAmt="amount")
-
 
 
 app  = Flask(__name__)
